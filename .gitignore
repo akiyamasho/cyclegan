@@ -47,3 +47,7 @@ venv/
 .pytest_cache
 __pycache__
 .ipynb_checkpoints/
+*.jpg
+*.png
+*.jpeg
+wandb/
