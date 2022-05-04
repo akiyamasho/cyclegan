@@ -143,15 +143,21 @@ if __name__ == "__main__":
                 % (epoch, total_iters, opt.name)
             )
             model.eval()
+
+            val_folder = "valA"
+            if opt.direction == "BtoA":
+                val_folder = "valB"
+
             for i, data in enumerate(val_dataset):
                 model.set_input(data)  # unpack data from data loader
                 model.test()  # run inference
 
                 visuals = model.get_current_visuals()  # get image results
+
                 if opt.direction == "BtoA":
-                    visuals = {"fake_B": visuals["fake_B"]}
-                else:
                     visuals = {"fake_A": visuals["fake_A"]}
+                else:
+                    visuals = {"fake_B": visuals["fake_B"]}
 
                 img_path = model.get_image_paths()  # get image paths
                 if i % 5 == 0:  # save images to an HTML file
@@ -165,8 +171,8 @@ if __name__ == "__main__":
                 )
             fid_value = calculate_fid_given_paths(
                 paths=(
-                    "./results/{d}/val_latest/images/".format(d=opt.name),
-                    "{d}/val".format(d=opt.dataroot),
+                    os.path.join(".", "results", opt.name, "val_latest", "images"),
+                    os.path.join(opt.dataroot, val_folder),
                 ),
                 batch_size=64,
                 device=torch.device('cuda' if (torch.cuda.is_available()) else 'cpu'),
