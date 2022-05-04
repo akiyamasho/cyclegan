@@ -16,6 +16,8 @@ See frequently asked questions at: https://github.com/akiyamasho/cyclegan/blob/m
 """
 import time
 import os
+import torch
+
 from options.train_options import TrainOptions
 from options.test_options import TestOptions
 from data import create_dataset
@@ -167,7 +169,7 @@ if __name__ == "__main__":
                     "{d}/val".format(d=opt.dataroot),
                 ),
                 batch_size=64,
-                cuda=True,
+                device=torch.device('cuda' if (torch.cuda.is_available()) else 'cpu'),
                 dims=2048,
             )
             visualizer.print_current_fid(epoch, fid_value)
