@@ -173,11 +173,15 @@ if __name__ == "__main__":
                 )
             fid_value = calculate_fid_given_paths(
                 paths=(
-                    os.path.join(".", "results", opt.name, "val_latest", "images"),
+                    os.path.join(
+                        ".", "results", opt.name, "val_latest", "images"
+                    ),
                     os.path.join(opt.dataroot, val_folder),
                 ),
                 batch_size=64,
-                device=torch.device('cuda' if (torch.cuda.is_available()) else 'cpu'),
+                device=torch.device(
+                    "cuda" if (torch.cuda.is_available()) else "cpu"
+                ),
                 dims=2048,
             )
             visualizer.print_current_fid(epoch, fid_value)
