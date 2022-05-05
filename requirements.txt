@@ -6,3 +6,4 @@ pytorch-fid>=-0.2.1
 wandb>=0.12.15
 opencv-python>=4.5.5
 tqdm>=4.63.0
+pillow>=9.0.1
