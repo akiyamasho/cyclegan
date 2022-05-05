@@ -145,7 +145,9 @@ if __name__ == "__main__":
             model.eval()
 
             val_folder = "valA"
-            if opt.direction == "BtoA":
+            if opt.model == "pix2pix":
+                val_folder = "val"
+            elif opt.direction == "BtoA":
                 val_folder = "valB"
 
             for i, data in enumerate(val_dataset):
